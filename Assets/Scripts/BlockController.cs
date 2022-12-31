@@ -11,7 +11,6 @@ public enum WhichPlayersBlock
     Bottom
 }
 
-
 public class BlockController : MonoBehaviour
 {
     [SerializeField]
@@ -25,8 +24,6 @@ public class BlockController : MonoBehaviour
 
     [SerializeField]
     private GameObject background;
-/*    public static int width = 16;
-    public static int height = 19;*/
     private int backgroundWidth;
     private int backgroundHeight;
     private int halfHeight;
@@ -43,7 +40,7 @@ public class BlockController : MonoBehaviour
 
     private int linesDeleted = 0;
 
-    // Top or bottom player?
+    // Top or bottom player stuff
     [SerializeField]
     private WhichPlayersBlock player = WhichPlayersBlock.Top;
 
@@ -212,55 +209,6 @@ public class BlockController : MonoBehaviour
                     currentBlock.transform.Rotate(Vector3.back * 90);
                 }
             }
-
-            // Get individual block transforms to check if it's a legal move.
-            //foreach (Transform child in currentBlock.transform)
-            {
-                /*if (child.position.x < 0)
-                {
-                    // ...unless blocked by other bricks
-                    if (CanMove(Vector3.right * -child.position.x))
-                    {
-                        currentBlock.transform.position += Vector3.right * -child.position.x;
-                    }
-                    // If blocked, undo rotation.
-                    else
-                    {
-                        currentBlock.transform.Rotate(Vector3.back * 90);
-                    }
-                    break;
-                }
-                // If off the right side of the screen, move block...
-                if (child.position.x > backgroundWidth - 1)
-                {
-                    // ...unless blocked by other bricks
-                    if (CanMove(Vector3.left * (child.position.x - (backgroundWidth - 1))))
-                    {
-                        currentBlock.transform.position += Vector3.left * (child.position.x - (backgroundWidth - 1));
-                    }
-                    // If blocked, undo rotation.
-                    else
-                    {
-                        currentBlock.transform.Rotate(Vector3.back * 90);
-                    }
-                    break;
-                }
-                // If past the bottom, move up...
-                if (-upOrDown.y * child.position.y < 0)
-                {
-                    // ...unless blocked by other bricks
-                    if (CanMove(-upOrDown * Mathf.Abs(child.position.y)))
-                    {
-                        currentBlock.transform.position += (-upOrDown * Mathf.Abs(child.position.y));
-                    }
-                    // If blocked, undo rotation.
-                    else
-                    {
-                        currentBlock.transform.Rotate(Vector3.back * 90);
-                    }
-                    break;
-                }*/
-            }
         }
     }
 
@@ -302,6 +250,8 @@ public class BlockController : MonoBehaviour
                 List<Transform> transforms = CheckForFullLines();
                 if (transforms != null)
                 {
+                    // DeleteLine runs itself recursively until all full lines are deleted.
+                    // Then it runs MoveBricksTowardCenter, then DeleteLines again until no lines are left.
                     DeleteLine(transforms);
                 }
 
@@ -319,10 +269,10 @@ public class BlockController : MonoBehaviour
             // If outside of boundaries, return false.
             if (checkBoundaries)
             {
-                if (Mathf.Abs(targetPosition.y) > halfHeight ||
+                if (/*Mathf.Abs(targetPosition.y) > halfHeight ||*/
                     -upOrDown.y * targetPosition.y < -0.1f ||
-                    targetPosition.x < 0 ||
-                    targetPosition.x > backgroundWidth - 1)
+                    targetPosition.x < -0.1f ||
+                    targetPosition.x > backgroundWidth - 0.9f)
                 {
                     Debug.Log(blockTransform.name + " outside of boundaries: " + targetPosition);
                     return false;
@@ -350,7 +300,9 @@ public class BlockController : MonoBehaviour
 
     private List<Transform> CheckForFullLines()
     {
-        for (int i = 0; i < halfHeight; i++)
+        for (int i = 0;
+            Mathf.Abs(i) < halfHeight;
+            i -= Mathf.RoundToInt(upOrDown.y))
         {
             if (CheckLine(i) != null)
             {
@@ -393,6 +345,8 @@ public class BlockController : MonoBehaviour
         int yValue = Mathf.RoundToInt(blockTransforms[0].position.y);
         Debug.Log("Deleting line " + yValue);
 
+        // Have Chomp do the actual destroying by moving Chomp game object across each line
+        // Chomp GO has trigger collider that destroys the blocks.
         foreach (Transform blockTransform in blockTransforms)
         {
             Destroy(blockTransform.gameObject);

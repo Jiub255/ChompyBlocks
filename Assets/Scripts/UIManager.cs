@@ -32,8 +32,8 @@ public class UIManager : MonoBehaviour
 
     private void UpdateUI()
     {
-		topScoreText.text = "Top: " + GameManager.topScore.ToString();
-		bottomScoreText.text = "Bottom: " + GameManager.bottomScore.ToString();
+		topScoreText.text = "Score: " + GameManager.topScore.ToString();
+		bottomScoreText.text = "Score: " + GameManager.bottomScore.ToString();
 
         topLinesText.text = "Lines completed: " + GameManager.topLines.ToString();
         bottomLinesText.text = "Lines completed: " + GameManager.bottomLines.ToString();
