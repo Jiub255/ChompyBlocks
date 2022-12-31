@@ -1,0 +1,574 @@
+fileFormatVersion: 2
+guid: b5fa291696c118e4386a597ef40fee2a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 80
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 484
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e69a1d6a0984ea4fba58fa6bebe015d
+      internalID: -1105143887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 484
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6f2d0a08660de247bb8a1d63f871a1d
+      internalID: 1909654123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_2
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 484
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3634605214e239b4fa8705cc52425b27
+      internalID: 333779592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_3
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 484
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57f02047d95806548945027f283313a1
+      internalID: -59918698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_4
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 484
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ecbb33bf3c45d49b835ed712d2e508
+      internalID: -2143577068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_5
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 323
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b016a4e0771a6d48b487510026ac8ea
+      internalID: 1769884669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_6
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 323
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36642e322c1b1664b8396afa8b7dafad
+      internalID: -373915718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_7
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 323
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c90c18600ae670449b28da30130e951d
+      internalID: -55755120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_8
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 323
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2b7da3dfb255694cba4d31a3ad0eb2c
+      internalID: -1404246561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_9
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 323
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 029c8a1267d831848b8f2eaf3f2640a3
+      internalID: 1581128413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_10
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 162
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09d10ee06561f1940ba8e6a2747e3000
+      internalID: 1931189665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_11
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 162
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb5707a5e33f10b48acf9fddbfca54f4
+      internalID: -1776151765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_12
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 162
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2347f5bb0a9ec5247994d75d6981d45d
+      internalID: 1365823527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_13
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 162
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94ad0953c52e0cc4d92fa6e777782c22
+      internalID: -888844321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_14
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 162
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 839ffe6615eecfe4781a490a167ee75d
+      internalID: -545518549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_15
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80a304061979cd948b5fcec8318c29a8
+      internalID: 1436804458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_16
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 1
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6288bd1ab88598c40b6ca9897257246b
+      internalID: 712570746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_17
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 1
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ef73ea193bf92f448c3042abb93ba0b
+      internalID: -1428819140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_18
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 1
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 812bc6f41e341d34cb1efa13baf10090
+      internalID: 928530126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_19
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 1
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02fee56821ca44947b40f882f630f53a
+      internalID: 1668820598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_11: -1776151765
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_5: 1769884669
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_18: 928530126
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_1: 1909654123
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_14: -545518549
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_8: -1404246561
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_19: 1668820598
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_4: -2143577068
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_10: 1931189665
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_12: 1365823527
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_6: -373915718
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_9: 1581128413
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_15: 1436804458
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_3: -59918698
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_16: 712570746
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_13: -888844321
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_7: -55755120
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_2: 333779592
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_17: -1428819140
+      Wii U - Super Mario Maker - Chain Chomp NSMBU(1)_0: -1105143887
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
