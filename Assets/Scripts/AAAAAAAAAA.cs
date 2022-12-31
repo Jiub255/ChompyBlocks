@@ -5,9 +5,7 @@ public class AAAAAAAAAA
     --------------------------------------------------------------------------------------------------------------
 
     TODO:
-    Fix bottom player's DeleteLine.
-        Full lines not getting detected/deleted.
-            Probably because CheckLines is only counting the top half for now.
+
 
 
     ---------------------------------------------------------------------------------------------------

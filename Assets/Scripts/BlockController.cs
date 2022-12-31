@@ -28,17 +28,19 @@ public class BlockController : MonoBehaviour
     private int backgroundHeight;
     private int halfHeight;
 
-    [SerializeField]
-    private LayerMask brickLayer;
-
     private bool wait = false;
     private float waitTimer;
 
     public static event Action onScoreChanged;
+    public static event Action<WhichPlayersBlock> onWin;
     public static event Action<List<int>> onChomp;
+
     private List<int> chompYValues = new List<int>();
 
     private int linesDeleted = 0;
+
+    [SerializeField]
+    private int winsNeeded = 3;
 
     // Top or bottom player stuff
     [SerializeField]
@@ -120,10 +122,18 @@ public class BlockController : MonoBehaviour
         if (player == WhichPlayersBlock.Top)
         {
             GameManager.bottomScore++;
+            if (GameManager.bottomScore >= winsNeeded)
+            {
+                Win(WhichPlayersBlock.Bottom);
+            }
         }
         else
         {
             GameManager.topScore++;
+            if (GameManager.topScore >= winsNeeded)
+            {
+                Win(WhichPlayersBlock.Top);
+            }
         }
         Debug.Log(GameManager.topScore + " vs " + GameManager.bottomScore);
 
@@ -132,7 +142,13 @@ public class BlockController : MonoBehaviour
 
         onScoreChanged?.Invoke();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (GameManager.bottomScore < 1 && GameManager.topScore < 1)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void Win(WhichPlayersBlock player)
+    {
+        onWin?.Invoke(player);
     }
 
     private void RotateBlock()

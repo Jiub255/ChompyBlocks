@@ -15,6 +15,11 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI bottomLinesText;
 
+    [SerializeField]
+    private GameObject winPanel;
+    [SerializeField]
+    private TextMeshProUGUI winnerText;
+
     private void Awake()
     {
         UpdateUI();
@@ -23,11 +28,13 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         BlockController.onScoreChanged += UpdateUI;
+        BlockController.onWin += Win;
     }
 
     private void OnDisable()
     {
         BlockController.onScoreChanged -= UpdateUI;
+        BlockController.onWin -= Win;
     }
 
     private void UpdateUI()
@@ -37,5 +44,20 @@ public class UIManager : MonoBehaviour
 
         topLinesText.text = "Lines completed: " + GameManager.topLines.ToString();
         bottomLinesText.text = "Lines completed: " + GameManager.bottomLines.ToString();
+    }
+
+    private void Win(WhichPlayersBlock player)
+    {
+        Time.timeScale = 0f;
+
+        WhichPlayersBlock otherPlayer;
+        if (player == WhichPlayersBlock.Top)
+            otherPlayer = WhichPlayersBlock.Bottom;
+        else 
+            otherPlayer = WhichPlayersBlock.Top;
+        winPanel.SetActive(true);
+        winnerText.text = player.ToString() + " Player Wins!" + "\n" +
+            "Fuck You, " + otherPlayer.ToString() + " Player!";
+        // Have chomp go chomp on loser's name or something.
     }
 }
