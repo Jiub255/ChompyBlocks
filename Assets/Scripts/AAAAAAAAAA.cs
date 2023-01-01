@@ -6,6 +6,11 @@ public class AAAAAAAAAA
 
     TODO:
 
+    Fix MoveBricksTowardCenter. Only moves one unit towards center instead of however many needed (for multiple lines)
+
+    (Possibly not actually happening)
+    Sometimes a block stops moving before it's fully touching another block,
+        like when they're only touching at the corner.
 
 
     ---------------------------------------------------------------------------------------------------

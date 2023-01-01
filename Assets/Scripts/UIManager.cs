@@ -15,6 +15,11 @@ public class UIManager : MonoBehaviour
 	[SerializeField]
 	private TextMeshProUGUI bottomLinesText;
 
+	[SerializeField]
+	private TextMeshProUGUI topTreatsText;
+	[SerializeField]
+	private TextMeshProUGUI bottomTreatsText;
+
     [SerializeField]
     private GameObject winPanel;
     [SerializeField]
@@ -44,6 +49,9 @@ public class UIManager : MonoBehaviour
 
         topLinesText.text = "Lines completed: " + GameManager.topLines.ToString();
         bottomLinesText.text = "Lines completed: " + GameManager.bottomLines.ToString();
+
+        topTreatsText.text = "Cat Treats: " + GameManager.topTreats.ToString();
+        bottomTreatsText.text = "Cat Treats: " + GameManager.bottomTreats.ToString();
     }
 
     private void Win(WhichPlayersBlock player)

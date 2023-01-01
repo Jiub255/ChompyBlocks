@@ -81,6 +81,12 @@ public class BlockController : MonoBehaviour
         {
             CreateNewBlock();
         }
+
+
+ /*       Debug.Log(Fibonacci(1) + " " + Fibonacci(2) + " " + Fibonacci(3) + " " + 
+            Fibonacci(4) + " " + Fibonacci(5) + " " + Fibonacci(6) + " " + Fibonacci(7));*/
+        Debug.Log(TriangleNumber(1) + " " + TriangleNumber(2) + " " + TriangleNumber(3) + " " + 
+            TriangleNumber(4) + " " + TriangleNumber(5) + " " + TriangleNumber(6) + " " + TriangleNumber(7));
     }
 
     private void Update()
@@ -106,7 +112,7 @@ public class BlockController : MonoBehaviour
     {
         if (Physics2D.OverlapBox(blockSpawnPosition, Vector3.one * 0.1f, 0f) != null)
         {
-            GameOver(player);
+            RoundOver(player);
         }
 
         GameObject randomBlock = blockPrefabs[UnityEngine.Random.Range(0, blockPrefabs.Length)];
@@ -117,14 +123,14 @@ public class BlockController : MonoBehaviour
             " at " + currentBlock.transform.position.ToString());*/
     }
 
-    private void GameOver(WhichPlayersBlock player)
+    private void RoundOver(WhichPlayersBlock player)
     {
         if (player == WhichPlayersBlock.Top)
         {
             GameManager.bottomScore++;
             if (GameManager.bottomScore >= winsNeeded)
             {
-                Win(WhichPlayersBlock.Bottom);
+                GameOver(WhichPlayersBlock.Bottom);
             }
         }
         else
@@ -132,21 +138,21 @@ public class BlockController : MonoBehaviour
             GameManager.topScore++;
             if (GameManager.topScore >= winsNeeded)
             {
-                Win(WhichPlayersBlock.Top);
+                GameOver(WhichPlayersBlock.Top);
             }
         }
-        Debug.Log(GameManager.topScore + " vs " + GameManager.bottomScore);
+        //Debug.Log(GameManager.topScore + " vs " + GameManager.bottomScore);
 
         GameManager.topLines = 0;
         GameManager.bottomLines = 0;
 
         onScoreChanged?.Invoke();
 
-        if (GameManager.bottomScore < 1 && GameManager.topScore < 1)
+        if (GameManager.bottomScore < winsNeeded && GameManager.topScore < winsNeeded)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void Win(WhichPlayersBlock player)
+    private void GameOver(WhichPlayersBlock player)
     {
         onWin?.Invoke(player);
     }
@@ -427,7 +433,8 @@ public class BlockController : MonoBehaviour
 
         foreach (GameObject remainingBrick in remainingBricks)
         {
-            remainingBrick.transform.position += upOrDown;
+            // Not sure about * linesDeleted here.
+            remainingBrick.transform.position += upOrDown * linesDeleted;
         }
 
         // Recursively run through DeleteLine -> MoveBricksTowardCenter until all full lines are deleted
@@ -442,16 +449,35 @@ public class BlockController : MonoBehaviour
             // popup animation?
 
             // Add treats for multiple lines deleted
+            // 1 for 1, 3 for 2, 6 for 3, fibonacci or triangle numbers.
+            int treatsToAdd = TriangleNumber(linesDeleted);
+
             if (player == WhichPlayersBlock.Top)
             {
-                GameManager.topTreats += linesDeleted - 1;
+                GameManager.topTreats += treatsToAdd;
                 linesDeleted = 0;
             }
             else
             {
-                GameManager.bottomTreats += linesDeleted - 1;
+                GameManager.bottomTreats += treatsToAdd;
                 linesDeleted = 0;
             }
+
+            onScoreChanged?.Invoke();
         }
+    }
+
+    private int Fibonacci(int n)
+    {
+        if (n <= 1)
+            return 0;
+        if (n == 2)
+            return 1;
+        return Fibonacci(n - 1) + Fibonacci(n - 2);
+    }
+
+    private int TriangleNumber(int n)
+    {
+        return (n * (n + 1)) / 2;
     }
 }
