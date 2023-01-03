@@ -402,6 +402,7 @@ public class BlockController : MonoBehaviour
             onChomp?.Invoke(chompYValues);
             chompYValues.Clear();
 
+            // Put this at the end of chomp coroutine.
             MoveBricksTowardCenter(yValue);
         }
     }
@@ -437,34 +438,37 @@ public class BlockController : MonoBehaviour
             remainingBrick.transform.position += upOrDown * linesDeleted;
         }
 
+        // Dont think I need to do this since whole lines move down and so no new lines will be completed.
         // Recursively run through DeleteLine -> MoveBricksTowardCenter until all full lines are deleted
-        List<Transform> transforms = CheckForFullLines();
+/*        List<Transform> transforms = CheckForFullLines();
         if (transforms != null)
         {
             DeleteLine(transforms);
         }
+        else*/
+       // {
+
+        // send linesDeleted to UI/GameManager?
+        // popup animation?
+
+        // Add treats for multiple lines deleted
+        // 1 for 1, 3 for 2, 6 for 3, fibonacci or triangle numbers.
+        int treatsToAdd = TriangleNumber(linesDeleted);
+
+        if (player == WhichPlayersBlock.Top)
+        {
+            GameManager.topTreats += treatsToAdd;
+            linesDeleted = 0;
+        }
         else
         {
-            // send linesDeleted to UI/GameManager?
-            // popup animation?
-
-            // Add treats for multiple lines deleted
-            // 1 for 1, 3 for 2, 6 for 3, fibonacci or triangle numbers.
-            int treatsToAdd = TriangleNumber(linesDeleted);
-
-            if (player == WhichPlayersBlock.Top)
-            {
-                GameManager.topTreats += treatsToAdd;
-                linesDeleted = 0;
-            }
-            else
-            {
-                GameManager.bottomTreats += treatsToAdd;
-                linesDeleted = 0;
-            }
-
-            onScoreChanged?.Invoke();
+            GameManager.bottomTreats += treatsToAdd;
+            linesDeleted = 0;
         }
+
+        onScoreChanged?.Invoke();
+
+       // }
     }
 
     private int Fibonacci(int n)

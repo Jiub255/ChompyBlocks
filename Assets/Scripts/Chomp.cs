@@ -42,13 +42,58 @@ public class Chomp : MonoBehaviour
 
     private void ChompLines(List<int> lineYValues)
     {
-/*        lineYValues.Sort((x, y) => x.CompareTo(y));
+        // Pause Game until chomping done
 
-        foreach (int yValue in lineYValues)
+
+       // bool goingLeft = false;
+
+        lineYValues.Sort((x, y) => x.CompareTo(y));
+
+        StartCoroutine(MoveAcrossLines(lineYValues));
+
+/*        for (int i = 0; i < lineYValues.Count; i++)
         {
+            // move (lerp) across row at lineYValues[i] using rb.MovePosition (so collisions work)
+            if (goingLeft)
+            {
 
+            }
+
+            // Move up if not last row
+
+            // turn around if not last row
         }*/
     }
+
+    private IEnumerator MoveAcrossLines(List<int> yValues)
+    {
+        yield return null;
+
+        // Move to left side of first line
+
+        // Move across line until at other side
+
+        //if (notLastLine)
+        //{
+            // Move up to next yValue
+
+            // Turn around
+        //}
+        //else
+        //{
+            // Hide chomp?
+
+            // Call MoveBricksTowardCenter(yValue, number of lines)
+                // not fully sure on parameters, list of yValues instead maybe?
+    }
+
+/*    private IEnumerator MoveAcrossLine(int YValue, bool goingLeft, bool isLastLine)
+    {
+        if (goingLeft)
+        {
+
+        }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

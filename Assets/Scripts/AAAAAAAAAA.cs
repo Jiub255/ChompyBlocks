@@ -5,12 +5,24 @@ public class AAAAAAAAAA
     --------------------------------------------------------------------------------------------------------------
 
     TODO:
+    
+    Finish chomp lines system.
+        Just comment out the actual Destroy part of destroyLines and have the onChomp event run.
+        Have chomper go across board back and forth at chompYValues to destroy pieces, then run MoveBricksTowardCenter.
 
-    Fix MoveBricksTowardCenter. Only moves one unit towards center instead of however many needed (for multiple lines)
+    Finish treat system.
+        Push whatever button to throw treat.
+        Collect all of opponents bricks in a list, choose a random item from list, then have chomp go eat that brick.
+        
+    Balance
+        How fast should pieces fall? How quickly should they get faster?
+        Which pieces to use?
+        Switch top and bottom every other round?
 
-    (Possibly not actually happening)
-    Sometimes a block stops moving before it's fully touching another block,
-        like when they're only touching at the corner.
+    Art
+        Make better looking pieces, chomper, and UI
+
+    Main Menu, High scores?
 
 
     ---------------------------------------------------------------------------------------------------
