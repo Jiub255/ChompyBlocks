@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
     {
         GM.onScoreChanged += UpdateUI;
         Chomp.onScoreChanged += UpdateUI;
+        ChompTreat.onScoreChanged += UpdateUI;
         GM.onWin += Win;
     }
 
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
     {
         GM.onScoreChanged -= UpdateUI;
         Chomp.onScoreChanged -= UpdateUI;
+        ChompTreat.onScoreChanged -= UpdateUI;
         GM.onWin -= Win;
     }
 
@@ -56,15 +58,15 @@ public class UIManager : MonoBehaviour
         bottomTreatsText.text = "Cat Treats: " + GM.bottomTreats.ToString();
     }
 
-    private void Win(WhichPlayersBlock player)
+    private void Win(WhichPlayer player)
     {
         Time.timeScale = 0f;
 
-        WhichPlayersBlock otherPlayer;
-        if (player == WhichPlayersBlock.Top)
-            otherPlayer = WhichPlayersBlock.Bottom;
+        WhichPlayer otherPlayer;
+        if (player == WhichPlayer.Top)
+            otherPlayer = WhichPlayer.Bottom;
         else 
-            otherPlayer = WhichPlayersBlock.Top;
+            otherPlayer = WhichPlayer.Top;
         winPanel.SetActive(true);
         winnerText.text = player.ToString() + " Player Wins!" + "\n" +
             "Fuck You, " + otherPlayer.ToString() + " Player!";

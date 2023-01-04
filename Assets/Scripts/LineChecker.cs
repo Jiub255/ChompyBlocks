@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineDeleter : MonoBehaviour
+public class LineChecker : MonoBehaviour
 {
 	public static List<int> CheckLines(Vector3 upOrDown)
     {
@@ -27,8 +27,11 @@ public class LineDeleter : MonoBehaviour
 
         for (int i = 0; i < GM.backgroundWidth; i++)
         {
-            if (Physics2D.OverlapBox(new Vector2(i, yCoordinate), Vector2.one * 0.1f, 0f) != null)
+            if (Physics2D.OverlapBox(new Vector2(i, yCoordinate), Vector2.one * 0.1f, 0f, GM.brickLayer) != null)
             {
+                //TODO: Bug where game freezes, error points here. No idea why yet.
+                    // Starts from MovePiece in PieceController, get Null Reference Exception here.
+                    // Happening when piece has landed.
                 Transform blockTransform = Physics2D.OverlapBox(
                     new Vector2(i, yCoordinate), Vector2.one * 0.1f, 0f, GM.brickLayer).transform;
 

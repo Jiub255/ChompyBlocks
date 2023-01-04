@@ -12,8 +12,8 @@ public class GM : MonoBehaviour
 	public static int topLines = 0;
 	public static int bottomLines = 0;
 
-	public static int topTreats = 0;
-	public static int bottomTreats = 0;
+	public static int topTreats = 3;
+	public static int bottomTreats = 3;
 
 	[SerializeField]
 	private GameObject background;
@@ -22,7 +22,7 @@ public class GM : MonoBehaviour
 	public static int halfHeight;
 
     public static event Action onScoreChanged;
-    public static event Action<WhichPlayersBlock> onWin;
+    public static event Action<WhichPlayer> onWin;
 
     [SerializeField]
     private int winsNeededInspector = 3;
@@ -31,6 +31,8 @@ public class GM : MonoBehaviour
     [SerializeField]
     private LayerMask brickLayerInspector;
     public static LayerMask brickLayer;
+
+    public static bool paused = false;
 
     private void Awake()
     {
@@ -57,18 +59,18 @@ public class GM : MonoBehaviour
 
     private void TogglePause()
     {
-        Time.timeScale = (Time.timeScale + 1f) % 2;
-        //BlockController.paused = !BlockController.paused;
+        //Time.timeScale = (Time.timeScale + 1f) % 2;
+        paused = !paused;
     }
 
-    public static void RoundOver(WhichPlayersBlock player)
+    public static void RoundOver(WhichPlayer player)
     {
-        if (player == WhichPlayersBlock.Top)
+        if (player == WhichPlayer.Top)
         {
             GM.bottomScore++;
             if (GM.bottomScore >= winsNeeded)
             {
-                GameOver(WhichPlayersBlock.Bottom);
+                GameOver(WhichPlayer.Bottom);
             }
         }
         else
@@ -76,7 +78,7 @@ public class GM : MonoBehaviour
             GM.topScore++;
             if (GM.topScore >= winsNeeded)
             {
-                GameOver(WhichPlayersBlock.Top);
+                GameOver(WhichPlayer.Top);
             }
         }
         //Debug.Log(GameManager.topScore + " vs " + GameManager.bottomScore);
@@ -90,7 +92,7 @@ public class GM : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public static void GameOver(WhichPlayersBlock player)
+    public static void GameOver(WhichPlayer player)
     {
         onWin?.Invoke(player);
     }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class ChompTreat : MonoBehaviour
 {
     [SerializeField]
@@ -10,12 +12,22 @@ public class ChompTreat : MonoBehaviour
     [SerializeField]
     private float speed = 50f;
 
+    public static event Action onScoreChanged;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.enabled = false;
+    }
+
     private void Update()
     {
-        if (!PieceController.paused)
+        if (!GM.paused)
         {
             // For top player
-            if (Input.GetKeyDown(KeyCode.RightShift))
+            if (Input.GetKeyDown(KeyCode.RightShift) && GM.topTreats > 0)
             {
                 // Get all bottom player's bricks in a list (except the current piece ones)
                 List<GameObject> bottomBricks = new List<GameObject>();
@@ -34,24 +46,33 @@ public class ChompTreat : MonoBehaviour
                     }
                 }
 
-                // Choose a random brick from list
-                int randomInt = Random.Range(0, bottomBricks.Count);
-                GameObject randomBrick = bottomBricks[randomInt];
-                Debug.Log(randomBrick.transform.position);
+                if (bottomBricks.Count > 0)
+                {
+                    // Pause gameplay
+                    GM.paused = true;
 
-                // Throw cat treat onto brick
-                GameObject treatInstance = Instantiate(catTreatPrefab);
-                treatInstance.transform.position = new Vector2(GM.backgroundWidth + 3, 0);
-                StartCoroutine(MoveTreatToBrick(treatInstance.transform, randomBrick.transform.position));
+                    GM.topTreats--;
+                    onScoreChanged?.Invoke();
 
-                // Have chompy come eat that brick and cat treat
-                // Run from end of MoveTreatToBrick coroutine?
+                    // Choose a random brick from list
+                    int randomInt = UnityEngine.Random.Range(0, bottomBricks.Count);
+                    GameObject randomBrick = bottomBricks[randomInt];
+                   // Debug.Log(randomBrick.transform.position);
+
+                    // Throw cat treat onto brick
+                    GameObject treatInstance = Instantiate(catTreatPrefab);
+                    treatInstance.transform.position = new Vector3(GM.backgroundWidth + 3, 0, 0);
+                    StartCoroutine(MoveTreatToBrick(treatInstance.transform, randomBrick.transform.position));
+
+                    // Have chompy come eat that brick and cat treat
+                    // Run from end of MoveTreatToBrick coroutine?
+                }
             }
 
             // For bottom player
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && GM.bottomTreats > 0)
             {
-                // Get all top player's bricks in a list (except the current piece ones)
+                                // Get all top player's bricks in a list (except the current piece ones)
                 List<GameObject> topBricks = new List<GameObject>();
 
                 for (int y = 1; y <= GM.halfHeight; y++)
@@ -68,26 +89,115 @@ public class ChompTreat : MonoBehaviour
                     }
                 }
 
-                // Choose a random brick from list
-                int randomInt = Random.Range(0, topBricks.Count);
-                GameObject randomBrick = topBricks[randomInt];
-                Debug.Log(randomBrick.transform.position);
+                if (topBricks.Count > 0)
+                {
+                    // Pause gameplay
+                    GM.paused = true;
 
-                // Throw cat treat onto brick
+                    GM.bottomTreats--;
+                    onScoreChanged?.Invoke();
 
-                // Have chompy come eat that brick and cat treat
+                    // Choose a random brick from list
+                    int randomInt = UnityEngine.Random.Range(0, topBricks.Count);
+                    GameObject randomBrick = topBricks[randomInt];
+                   // Debug.Log(randomBrick.transform.position);
 
+                    // Throw cat treat onto brick
+                    GameObject treatInstance = Instantiate(catTreatPrefab);
+                    treatInstance.transform.position = new Vector3(-3, 0, 0);
+                    StartCoroutine(MoveTreatToBrick(treatInstance.transform, randomBrick.transform.position));
+
+                    // Have chompy come eat that brick and cat treat
+                    // Run from end of MoveTreatToBrick coroutine?
+                }
             }
         }
     }
 
     private IEnumerator MoveTreatToBrick(Transform treat, Vector2 targetPosition)
     {
-        while (Vector2.Distance(targetPosition, treat.transform.position) > 0.1f)
+/*        // Pause gameplay, maybe set timeScale to 0?
+        GM.paused = true;*/
+       // Time.timeScale = 0f;
+
+        // Move treat to brick
+        while (Vector2.Distance(targetPosition, treat.position) > 0.5f)
         {
-            treat.transform.position = Vector3.MoveTowards(treat.transform.position, targetPosition, Time.deltaTime * speed);
+            treat.position = Vector3.MoveTowards(treat.position, targetPosition, Time.deltaTime * speed);
 
             yield return null;
         }
+
+        treat.position = targetPosition;
+
+        StartCoroutine(ChompTreatAndBrick(targetPosition));
+    }
+
+    private IEnumerator ChompTreatAndBrick(Vector2 treatPosition)
+    {
+        // Chomp goes to treat
+
+        spriteRenderer.enabled = true;
+        
+        // Bottom Player
+        if (treatPosition.y > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            transform.position = new Vector3(-3, 0, 0);
+        }
+        // Top Player
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            transform.position = new Vector3(GM.backgroundWidth + 3, 0, 0);
+        }
+
+        while (Vector2.Distance(treatPosition, transform.position) > 0.5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, treatPosition, Time.deltaTime * speed);
+
+            yield return null;
+        }
+
+        transform.position = treatPosition;
+
+        //Debug.Log("Moved chomp to treat");
+
+        // Chomp eats treat and brick
+        Collider2D[] hits = Physics2D.OverlapBoxAll(treatPosition, Vector2.one * 0.1f, 0, GM.brickLayer);
+        foreach (Collider2D hit in hits)
+        {
+            //Debug.Log(hit.gameObject.name);
+            Destroy(hit.gameObject);
+        }
+
+        // Chomp goes to other side of board
+        // Bottom Player
+        Vector2 homeTarget;
+
+        if (treatPosition.y > 0)
+        {
+            homeTarget = new Vector3(GM.backgroundWidth + 3, 0, 0);
+        }
+        // Top Player
+        else
+        {
+            homeTarget = new Vector3(-3, 0, 0);
+        }
+
+        while (Vector2.Distance(homeTarget, transform.position) > 0.5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, homeTarget, Time.deltaTime * speed);
+
+            yield return null;
+        }
+
+        transform.position = homeTarget;
+
+        spriteRenderer.enabled = false;
+
+        // Unpause gameplay, set timeScale back to 1?
+        GM.paused = false;
+       // Time.timeScale = 1f;
     }
 }

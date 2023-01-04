@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum WhichPlayersBlock 
+public enum WhichPlayer 
 {
-    Top,
-    Bottom
+    Top/* = 1*/,
+    Bottom/* = -1*/
 }
 
 public class PieceController : MonoBehaviour
@@ -22,11 +22,9 @@ public class PieceController : MonoBehaviour
 
     public static event Action<List<int>, Vector3> onChomp;
 
-    public static bool paused = false;
-
     // Top or bottom player stuff
     [SerializeField]
-    private WhichPlayersBlock player = WhichPlayersBlock.Top;
+    private WhichPlayer player = WhichPlayer.Top;
 
     private Vector2 spawnPosition;
 
@@ -41,7 +39,7 @@ public class PieceController : MonoBehaviour
     {
         spawnPosition = new Vector2(Mathf.RoundToInt(GM.backgroundWidth / 2), GM.halfHeight);
 
-        if (player == WhichPlayersBlock.Bottom)
+        if (player == WhichPlayer.Bottom)
         {
             upOrDown = Vector3.up;
             spawnPosition = new Vector2(spawnPosition.x, -spawnPosition.y);
@@ -56,10 +54,10 @@ public class PieceController : MonoBehaviour
 
     private void Update()
     {
-        if (!paused)
+        if (!GM.paused)
         {
-            MoveBlock();
-            RotateBlock();
+            MovePiece();
+            RotatePiece();
         }
     }
 
@@ -83,7 +81,93 @@ public class PieceController : MonoBehaviour
         }
     }
 
-    private void RotateBlock()
+    private void MovePiece()
+    {
+        // Move side to side with controls
+        if (Input.GetKeyDown(moveLeft) && CanMove(Vector3.left))
+        {
+            currentPiece.transform.position += Vector3.left;
+        }
+        if (Input.GetKeyDown(moveRight) && CanMove(Vector3.right))
+        {
+            currentPiece.transform.position += Vector3.right;
+        }
+
+        // Move down (or up) automatically or with key press
+        timer += Time.deltaTime;
+        if (timer > timeBetweenMoves || Input.GetKeyDown(moveDownOrUp))
+        {
+            timer = 0;
+
+            if (CanMove(upOrDown))
+            {
+                currentPiece.transform.position += upOrDown;
+            }
+            // Else the piece has landed. Check for full lines, delete (and shift remaining bricks)
+                // if necessary, then spawn new piece. 
+            else
+            {
+                // Change piece and children bricks to "Brick" layer to differentiate them
+                // from the "Default" layer that currentPiece and children bricks are in.
+                currentPiece.layer = LayerMask.NameToLayer("Brick");
+                foreach (Transform brick in currentPiece.transform)
+                {
+                    brick.gameObject.layer = LayerMask.NameToLayer("Brick");
+                }
+
+                // Check for lines with LineDeleter
+                List<int> linesToDelete = LineChecker.CheckLines(upOrDown);
+                
+                // If there are full lines, start deleting/shifting process
+                if (linesToDelete.Count > 0)
+                {
+                    onChomp?.Invoke(linesToDelete, upOrDown);
+                }
+                // If no full lines, just create new piece
+                else
+                {
+                    CreateNewPiece();
+                }
+            }
+        }
+    }
+
+    private bool CanMove(Vector3 movement, bool checkBoundaries = true)
+    {
+        foreach (Transform blockTransform in currentPiece.transform)
+        {
+            Vector3 targetPosition = blockTransform.position + movement;
+
+            // If outside of boundaries, return false.
+            if (checkBoundaries)
+            {
+                if (-upOrDown.y * targetPosition.y < -0.1f ||
+                    targetPosition.x < -0.1f ||
+                    targetPosition.x > GM.backgroundWidth - 0.9f)
+                {
+                    return false;
+                }
+            }
+
+            // If space already taken by another block, return false.
+                // Don't think I should use brick layermask here, since piece should never hit itself, 
+                // and it should detect the rare collision where you move into the other players piece
+                // on the middle line before either have "landed" and become brick layered GO's.
+            if (Physics2D.OverlapBox(targetPosition, Vector2.one * 0.1f, 0f))
+            {
+                // Ignore collisions with self
+                if (Physics2D.OverlapBox(targetPosition, Vector2.one * 0.1f, 0f).
+                    transform.parent.GetInstanceID() != currentPiece.transform.GetInstanceID())
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private void RotatePiece()
     {
         if (Input.GetKeyDown(rotateRight))
         {
@@ -105,7 +189,7 @@ public class PieceController : MonoBehaviour
                 xValues.Add(t.position.x);
                 yValues.Add(t.position.y);
             }
-            if (player == WhichPlayersBlock.Bottom)
+            if (player == WhichPlayer.Bottom)
             {
                 for (int i = 0; i < yValues.Count; i++)
                 {
@@ -159,98 +243,5 @@ public class PieceController : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void MoveDirectionIfPossible(Vector3 direction)
-    {
-        if (CanMove(direction))
-        {
-            currentPiece.transform.position += direction;
-        }
-    }
-
-    private void MoveBlock()
-    {
-        // Move side to side with controls
-        if (Input.GetKeyDown(moveLeft))
-        {
-            MoveDirectionIfPossible(Vector3.left);
-
-        }
-        if (Input.GetKeyDown(moveRight))
-        {
-            MoveDirectionIfPossible(Vector3.right);
-        }
-
-        // Move down (or up) automatically or with key press
-        timer += Time.deltaTime;
-        if (timer > timeBetweenMoves || Input.GetKeyDown(moveDownOrUp))
-        {
-            timer = 0;
-
-            if (CanMove(upOrDown))
-            {
-                currentPiece.transform.position += upOrDown;
-            }
-            // Else the piece has landed. Check for full lines, delete (and shift remaining bricks)
-                // if necessary, then spawn new piece. 
-            else
-            {
-                currentPiece.layer = LayerMask.NameToLayer("Brick");
-                foreach (Transform brick in currentPiece.transform)
-                {
-                    brick.gameObject.layer = LayerMask.NameToLayer("Brick");
-                }
-
-                // Check for lines with LineDeleter
-                List<int> linesToDelete = LineDeleter.CheckLines(upOrDown);
-                
-                // If there are full lines, start deleting/shifting process
-                if (linesToDelete.Count > 0)
-                {
-                    onChomp?.Invoke(linesToDelete, upOrDown);
-                }
-                // If no full lines, just create new piece
-                else
-                {
-                    CreateNewPiece();
-                }
-            }
-        }
-    }
-
-    private bool CanMove(Vector3 movement, bool checkBoundaries = true)
-    {
-        foreach (Transform blockTransform in currentPiece.transform)
-        {
-            Vector3 targetPosition = blockTransform.position + movement;
-
-            // If outside of boundaries, return false.
-            if (checkBoundaries)
-            {
-                if (-upOrDown.y * targetPosition.y < -0.1f ||
-                    targetPosition.x < -0.1f ||
-                    targetPosition.x > GM.backgroundWidth - 0.9f)
-                {
-                    return false;
-                }
-            }
-
-            // If space already taken by another block, return false.
-                // Don't think I should use brick layermask here, since piece should never hit itself, 
-                // and it should detect the rare collision where you move into the other players piece
-                // on the middle line before either have "landed" and become brick layered GO's.
-            if (Physics2D.OverlapBox(targetPosition, Vector2.one * 0.1f, 0f))
-            {
-                // Ignore collisions with self
-                if (Physics2D.OverlapBox(targetPosition, Vector2.one * 0.1f, 0f).
-                    transform.parent.GetInstanceID() != currentPiece.transform.GetInstanceID())
-                {
-                    return false;
-                }
-            }
-        }
-
-        return true;
     }
 }

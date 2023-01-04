@@ -5,15 +5,25 @@ public class AAAAAAAAAA
     --------------------------------------------------------------------------------------------------------------
 
     FIX:
+    
+    Some bug when pushing both treat buttons while chomp is clearing lines
+        Not sure what happened, but it froze/paused the game
+
+    When both players get full lines in the center on the same frame, they stack on top of each other
+        Not a big deal, shouldn't really happen in real game play.
+        Maybe alternate update frames for top/bottom player movement?
+            But not input
+
+    Change all prefab pieces to use brick prefab
+
+    Make it so if you throw a treat on the last brick in a row, it moves all further bricks toward center?
+        This would help the opponent, but it would be rare.
+        Probably makes sense not to, but it looks kinds dumb having a empty line sitting there.
         
     --------------------------------------------------------------------------------------------------------------
 
 
     TODO:
-
-    Finish treat system.
-        Push whatever button to throw treat.
-        Collect all of opponents bricks in a list, choose a random item from list, then have chomp go eat that brick.
         
     Balance
         How should scoring work?

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Chomp : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -66,6 +67,9 @@ public class Chomp : MonoBehaviour
 
     private void ChompLines(List<int> lineYValues, Vector3 upOrDown)
     {
+        // Pause Game until chomping done
+        GM.paused = true;
+     
         lineYValues.Sort();
 
         // If bottom player, reverse list
@@ -79,9 +83,6 @@ public class Chomp : MonoBehaviour
 
     private IEnumerator MoveAcrossLines(List<int> yValues, Vector3 upOrDown)
     {
-        // Pause Game until chomping done
-        PieceController.paused = true;
-
         // Set chomping to true
         chomping = true;
 
@@ -136,14 +137,11 @@ public class Chomp : MonoBehaviour
         // Move chomp out of the way so collider doesn't interfere with gameplay
         transform.position += Vector3.right * 50;
 
-        // Run ShiftLines
-        ShiftLines(yValues, upOrDown);
-
         // Set chomping to false
         chomping = false;
 
-        // Unpause game
-        PieceController.paused = false;
+        // Run ShiftLines
+        ShiftLines(yValues, upOrDown);
     }
 
     private void ShiftLines(List<int> yValues, Vector3 upOrDown)
@@ -197,6 +195,9 @@ public class Chomp : MonoBehaviour
         }
 
         onScoreChanged?.Invoke();
+
+        // Unpause game
+        GM.paused = false;
     }
 
 /*    private void OnTriggerEnter2D(Collider2D collision)
