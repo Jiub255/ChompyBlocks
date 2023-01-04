@@ -32,26 +32,28 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        BlockController.onScoreChanged += UpdateUI;
-        BlockController.onWin += Win;
+        GM.onScoreChanged += UpdateUI;
+        Chomp.onScoreChanged += UpdateUI;
+        GM.onWin += Win;
     }
 
     private void OnDisable()
     {
-        BlockController.onScoreChanged -= UpdateUI;
-        BlockController.onWin -= Win;
+        GM.onScoreChanged -= UpdateUI;
+        Chomp.onScoreChanged -= UpdateUI;
+        GM.onWin -= Win;
     }
 
     private void UpdateUI()
     {
-		topScoreText.text = "Score: " + GameManager.topScore.ToString();
-		bottomScoreText.text = "Score: " + GameManager.bottomScore.ToString();
+		topScoreText.text = "Score: " + GM.topScore.ToString();
+		bottomScoreText.text = "Score: " + GM.bottomScore.ToString();
 
-        topLinesText.text = "Lines completed: " + GameManager.topLines.ToString();
-        bottomLinesText.text = "Lines completed: " + GameManager.bottomLines.ToString();
+        topLinesText.text = "Lines completed: " + GM.topLines.ToString();
+        bottomLinesText.text = "Lines completed: " + GM.bottomLines.ToString();
 
-        topTreatsText.text = "Cat Treats: " + GameManager.topTreats.ToString();
-        bottomTreatsText.text = "Cat Treats: " + GameManager.bottomTreats.ToString();
+        topTreatsText.text = "Cat Treats: " + GM.topTreats.ToString();
+        bottomTreatsText.text = "Cat Treats: " + GM.bottomTreats.ToString();
     }
 
     private void Win(WhichPlayersBlock player)
