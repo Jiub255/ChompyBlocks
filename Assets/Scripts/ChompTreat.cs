@@ -68,9 +68,8 @@ public class ChompTreat : MonoBehaviour
                     // Run from end of MoveTreatToBrick coroutine?
                 }
             }
-
-            // For bottom player
-            if (Input.GetKeyDown(KeyCode.LeftShift) && GM.bottomTreats > 0)
+            // For bottom player, "else if" so they don't both run during same frame.
+            else if (Input.GetKeyDown(KeyCode.LeftShift) && GM.bottomTreats > 0)
             {
                                 // Get all top player's bricks in a list (except the current piece ones)
                 List<GameObject> topBricks = new List<GameObject>();
@@ -116,10 +115,6 @@ public class ChompTreat : MonoBehaviour
 
     private IEnumerator MoveTreatToBrick(Transform treat, Vector2 targetPosition)
     {
-/*        // Pause gameplay, maybe set timeScale to 0?
-        GM.paused = true;*/
-       // Time.timeScale = 0f;
-
         // Move treat to brick
         while (Vector2.Distance(targetPosition, treat.position) > 0.5f)
         {
@@ -135,9 +130,8 @@ public class ChompTreat : MonoBehaviour
 
     private IEnumerator ChompTreatAndBrick(Vector2 treatPosition)
     {
-        // Chomp goes to treat
-
         spriteRenderer.enabled = true;
+        // Chomp goes to treat
         
         // Bottom Player
         if (treatPosition.y > 0)
@@ -161,13 +155,10 @@ public class ChompTreat : MonoBehaviour
 
         transform.position = treatPosition;
 
-        //Debug.Log("Moved chomp to treat");
-
         // Chomp eats treat and brick
         Collider2D[] hits = Physics2D.OverlapBoxAll(treatPosition, Vector2.one * 0.1f, 0, GM.brickLayer);
         foreach (Collider2D hit in hits)
         {
-            //Debug.Log(hit.gameObject.name);
             Destroy(hit.gameObject);
         }
 
@@ -196,8 +187,7 @@ public class ChompTreat : MonoBehaviour
 
         spriteRenderer.enabled = false;
 
-        // Unpause gameplay, set timeScale back to 1?
+        // Unpause gameplay
         GM.paused = false;
-       // Time.timeScale = 1f;
     }
 }

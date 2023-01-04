@@ -59,8 +59,17 @@ public class GM : MonoBehaviour
 
     private void TogglePause()
     {
-        //Time.timeScale = (Time.timeScale + 1f) % 2;
-        paused = !paused;
+        //paused = !paused;
+        Time.timeScale = (Time.timeScale + 1f) % 2;
+
+        if (Time.timeScale < 0.5f)
+        {
+            paused = true;
+        }
+        else
+        {
+            paused = false;
+        }
     }
 
     public static void RoundOver(WhichPlayer player)

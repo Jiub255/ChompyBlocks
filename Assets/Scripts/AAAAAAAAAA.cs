@@ -5,7 +5,14 @@ public class AAAAAAAAAA
     --------------------------------------------------------------------------------------------------------------
 
     FIX:
-    
+
+    BUGS SEEM TO BE GONE
+        Making Line Chomper and Treat Chomper separate prefabs seems to have fixed everything.
+        Definitely not sure about it though
+
+    Weird pause bug
+        One happens when completing a line, but it seems like only after having throw some treats 
+
     Some bug when pushing both treat buttons while chomp is clearing lines
         Not sure what happened, but it froze/paused the game
 

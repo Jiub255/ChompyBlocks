@@ -200,13 +200,6 @@ public class Chomp : MonoBehaviour
         GM.paused = false;
     }
 
-/*    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Destroyed brick");
-
-        Destroy(collision.gameObject);
-    }*/
-
     private void TurnAround()
     {
         transform.localScale = new Vector3(
